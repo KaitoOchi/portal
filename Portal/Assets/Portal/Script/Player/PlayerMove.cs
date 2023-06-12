@@ -10,6 +10,8 @@ public class PlayerMove : MonoBehaviour
     float MoveSpeed = 0.1f;
     [SerializeField, Header("ジャンプ量")]
     float JumpPower = 5.0f;
+    [SerializeField, Header("重力")]
+    Vector3 Gravity;
     [SerializeField, Header("GroundCheck")]
     GroundCheck Ground_Check;
 
@@ -22,6 +24,7 @@ public class PlayerMove : MonoBehaviour
     Vector2             m_moveDirection;        //移動方向。
     Vector3             m_moveSpeed;            //移動速度。      
     bool                m_isInputMove = false;  //移動入力しているかどうか。
+    bool                m_isJump = false;       //ジャンプしているかどうか。
     float               m_moveTimer = 0.0f;     //移動時のタイマー。
 
 
@@ -30,6 +33,7 @@ public class PlayerMove : MonoBehaviour
     {
         //Rigidbodyを取得。
         m_rigidbody = GetComponent<Rigidbody>();
+        m_rigidbody.useGravity = false;
 
         //PlayerControllerを取得。
         m_playerController = GetComponent<PlayerController>();
@@ -64,7 +68,6 @@ public class PlayerMove : MonoBehaviour
             if (Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.01f)
             {
                 m_moveDirection.y = Input.GetAxisRaw("Vertical");
-                m_moveTimer = 1.0f;
                 m_isInputMove = true;
             }
 
@@ -75,30 +78,24 @@ public class PlayerMove : MonoBehaviour
             if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.01f)
             {
                 m_moveDirection.x = Input.GetAxisRaw("Horizontal");
-                m_moveTimer = 1.0f;
                 m_isInputMove = true;
             }
 
-            Debug.Log(Input.GetAxisRaw("Vertical"));
-            Debug.Log(Input.GetAxisRaw("Horizontal"));
-
             //移動入力されてないなら
-            if (Input.GetAxisRaw("Vertical") <= 0.0f && Input.GetAxisRaw("Horizontal") <= 0.0f)
+            if (Mathf.Abs(Input.GetAxisRaw("Vertical")) < 0.01f && Mathf.Abs(Input.GetAxisRaw("Horizontal")) < 0.01f)
             {
                 //m_moveDirection.x -= 0.1f;
                 //m_moveDirection.y -= 0.1f;
                 m_moveTimer = 0.0f;
                 m_isInputMove = false;
-
-                Debug.Log("Stop");
             }
 
             //m_moveDirection.x = Mathf.Clamp(m_moveDirection.x, 2.0f, 0.0f);
             //m_moveDirection.y = Mathf.Clamp(m_moveDirection.y, 2.0f, 0.0f);
 
             //地面に触れている間、減速。
-            m_moveTimer -= Time.deltaTime;
-            m_moveTimer = Mathf.Max(0.0f, m_moveTimer);
+            m_moveTimer -= (m_moveTimer * 5.0f) * Time.deltaTime;
+            m_moveTimer = Mathf.Max(1.0f, m_moveTimer);
         }
         else
         {
@@ -107,8 +104,9 @@ public class PlayerMove : MonoBehaviour
             m_moveTimer = Mathf.Max(1.0f, m_moveTimer);
         }
 
+        Debug.Log(m_moveTimer);
 
-        if(m_isInputMove)
+        if (m_isInputMove)
         {
 
         }
@@ -133,7 +131,7 @@ public class PlayerMove : MonoBehaviour
 
         //斜め移動を早くしないよう正規化する。
         m_moveSpeed.Normalize();
-        m_moveSpeed *= MoveSpeed;
+        m_moveSpeed *= MoveSpeed * m_moveTimer;
 
         //移動させる。
         m_rigidbody.velocity = new Vector3(m_moveSpeed.x, m_rigidbody.velocity.y, m_moveSpeed.z);
@@ -141,7 +139,17 @@ public class PlayerMove : MonoBehaviour
 
     void MoveY()
     {
-        Jump();
+        //地面に接地しているなら、ジャンプ可能。
+        if(Ground_Check.GetIsGround())
+        {
+            Jump();
+        }
+        //接地していないなら、重力を与える。
+        else
+        {
+            m_rigidbody.AddForce(Gravity, ForceMode.Acceleration);
+            m_isJump = false;
+        }
     }
 
     /// <summary>
@@ -149,10 +157,11 @@ public class PlayerMove : MonoBehaviour
     /// </summary>
     void Jump()
     {
-        //Spaceが押されたら
-        if (Input.GetKeyDown(KeyCode.Space) && Ground_Check.GetIsGround())
+        //Spaceが押されたら。
+        if (Input.GetKey(KeyCode.Space) && !m_isJump)
         {
             m_rigidbody.AddForce(new Vector3(0.0f, JumpPower, 0.0f),　ForceMode.Impulse);
+            m_isJump = true;
         }
     }
 }
