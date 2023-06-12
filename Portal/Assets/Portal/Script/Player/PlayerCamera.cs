@@ -17,6 +17,15 @@ public class PlayerCamera : MonoBehaviour
     Quaternion          m_characterRot;        //プレイヤーの回転。
 
 
+    /// <summary>
+    /// X軸の感度を設定。
+    /// </summary>
+    /// <param name="x"></param>
+    public void SetSensityvityX(float x)
+    {
+        Sensityvity.x = x;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,11 +51,13 @@ public class PlayerCamera : MonoBehaviour
         float xRot = Input.GetAxis("Mouse X") * Sensityvity.x;
         float yRot = Input.GetAxis("Mouse Y") * Sensityvity.y;
 
+        //オイラー角を使用して角度を設定。
         m_cameraRot *= Quaternion.Euler(-yRot, 0, 0);
         m_characterRot *= Quaternion.Euler(0, xRot, 0);
 
         ClampRotation();
 
+        //カメラとプレイヤーの回転を設定。
         m_camera.transform.localRotation = m_cameraRot;
         transform.localRotation = m_characterRot;
     }

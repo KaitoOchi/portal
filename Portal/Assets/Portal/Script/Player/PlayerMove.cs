@@ -17,13 +17,13 @@ public class PlayerMove : MonoBehaviour
 
 
     Rigidbody           m_rigidbody;            //Rigidbody。
-
     GameObject          m_camera;               //カメラ。
     PlayerController    m_playerController;     //プレイヤーコントローラー。
+    PlayerCamera m_playerCamera;
 
     Vector2             m_moveDirection;        //移動方向。
     Vector3             m_moveSpeed;            //移動速度。      
-    bool                m_isInputMove = false;  //移動入力しているかどうか。
+    bool[]              m_isInputMove = new bool[2];  //移動入力しているかどうか。
     bool                m_isJump = false;       //ジャンプしているかどうか。
     float               m_moveTimer = 0.0f;     //移動時のタイマー。
 
@@ -37,6 +37,8 @@ public class PlayerMove : MonoBehaviour
 
         //PlayerControllerを取得。
         m_playerController = GetComponent<PlayerController>();
+
+        m_playerCamera = GetComponent<PlayerCamera>();
 
         //子オブジェクトのカメラを取得。
         m_camera = transform.GetChild(0).gameObject;
@@ -58,40 +60,18 @@ public class PlayerMove : MonoBehaviour
         MoveX();
     }
 
+    /// <summary>
+    /// X方向の移動処理。
+    /// </summary>
     void MoveX()
     {
-        //キーの入力から値を入手。
-        if (Ground_Check.GetIsGround())
+        bool isGround = Ground_Check.GetIsGround();
+
+        if(isGround)
         {
+            m_playerCamera.SetSensityvityX(3.0f);
+
             m_moveDirection = Vector2.zero;
-
-            if (Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.01f)
-            {
-                m_moveDirection.y = Input.GetAxisRaw("Vertical");
-                m_isInputMove = true;
-            }
-
-            //m_moveDirection = Vector2.zero;
-            //m_moveDirection.y = Input.GetAxisRaw("Vertical");
-            //m_moveDirection.x = Input.GetAxisRaw("Horizontal");
-
-            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.01f)
-            {
-                m_moveDirection.x = Input.GetAxisRaw("Horizontal");
-                m_isInputMove = true;
-            }
-
-            //移動入力されてないなら
-            if (Mathf.Abs(Input.GetAxisRaw("Vertical")) < 0.01f && Mathf.Abs(Input.GetAxisRaw("Horizontal")) < 0.01f)
-            {
-                //m_moveDirection.x -= 0.1f;
-                //m_moveDirection.y -= 0.1f;
-                m_moveTimer = 0.0f;
-                m_isInputMove = false;
-            }
-
-            //m_moveDirection.x = Mathf.Clamp(m_moveDirection.x, 2.0f, 0.0f);
-            //m_moveDirection.y = Mathf.Clamp(m_moveDirection.y, 2.0f, 0.0f);
 
             //地面に触れている間、減速。
             m_moveTimer -= (m_moveTimer * 5.0f) * Time.deltaTime;
@@ -100,20 +80,42 @@ public class PlayerMove : MonoBehaviour
         else
         {
             //移動速度を乗算。
-            m_moveTimer += Time.deltaTime;
+            m_moveTimer += Time.deltaTime * 1.5f;
             m_moveTimer = Mathf.Max(1.0f, m_moveTimer);
         }
 
-        Debug.Log(m_moveTimer);
+        InputKey();
 
-        if (m_isInputMove)
+        if (isGround)
         {
-
+            //移動入力されてないなら
+            if (m_isInputMove[0] == false && m_isInputMove[1] == false)
+            {
+                m_moveTimer = 0.0f;
+            }
         }
         else
         {
-
+            if (m_isInputMove[0] == true)
+            {
+                m_playerCamera.SetSensityvityX(0.1f);
+            }
         }
+
+        if (m_isInputMove[0] == false)
+        {
+            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.01f)
+            {
+                m_moveDirection.x = Input.GetAxisRaw("Horizontal");
+                m_isInputMove[1] = true;
+            }
+            else
+            {
+                m_isInputMove[1] = false;
+            }
+        }
+
+        Debug.Log(m_moveTimer);
 
         //カメラの前方向と右方向を取得。
         Vector3 forward = m_camera.transform.forward;
@@ -137,6 +139,9 @@ public class PlayerMove : MonoBehaviour
         m_rigidbody.velocity = new Vector3(m_moveSpeed.x, m_rigidbody.velocity.y, m_moveSpeed.z);
     }
 
+    /// <summary>
+    /// Y方向の移動処理。
+    /// </summary>
     void MoveY()
     {
         //地面に接地しているなら、ジャンプ可能。
@@ -149,6 +154,34 @@ public class PlayerMove : MonoBehaviour
         {
             m_rigidbody.AddForce(Gravity, ForceMode.Acceleration);
             m_isJump = false;
+        }
+    }
+
+    /// <summary>
+    /// 入力処理。
+    /// </summary>
+    void InputKey()
+    {
+        //WSの入力があったなら。
+        if (Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.01f)
+        {
+            m_moveDirection.y = Input.GetAxisRaw("Vertical");
+            m_isInputMove[0] = true;
+        }
+        else
+        {
+            m_isInputMove[0] = false;
+        }
+
+        //ADの入力があったなら。
+        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.01f)
+        {
+            m_moveDirection.x = Input.GetAxisRaw("Horizontal");
+            m_isInputMove[1] = true;
+        }
+        else
+        {
+            m_isInputMove[1] = false;
         }
     }
 
