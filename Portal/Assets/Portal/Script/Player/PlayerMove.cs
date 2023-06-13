@@ -19,10 +19,11 @@ public class PlayerMove : MonoBehaviour
     Rigidbody           m_rigidbody;            //Rigidbody。
     GameObject          m_camera;               //カメラ。
     PlayerController    m_playerController;     //プレイヤーコントローラー。
-    PlayerCamera m_playerCamera;
 
     Vector2             m_moveDirection;        //移動方向。
     Vector3             m_moveSpeed;            //移動速度。      
+    Vector3             m_forward;              //前方向。
+    Vector3             m_right;                //右方向。
     bool[]              m_isInputMove = new bool[2];  //移動入力しているかどうか。
     bool                m_isJump = false;       //ジャンプしているかどうか。
     float               m_moveTimer = 0.0f;     //移動時のタイマー。
@@ -37,8 +38,7 @@ public class PlayerMove : MonoBehaviour
 
         //PlayerControllerを取得。
         m_playerController = GetComponent<PlayerController>();
-
-        m_playerCamera = GetComponent<PlayerCamera>();
+        m_playerController = GetComponent<PlayerController>();
 
         //子オブジェクトのカメラを取得。
         m_camera = transform.GetChild(0).gameObject;
@@ -69,8 +69,6 @@ public class PlayerMove : MonoBehaviour
 
         if(isGround)
         {
-            m_playerCamera.SetSensityvityX(3.0f);
-
             m_moveDirection = Vector2.zero;
 
             //地面に触れている間、減速。
@@ -94,42 +92,25 @@ public class PlayerMove : MonoBehaviour
                 m_moveTimer = 0.0f;
             }
         }
-        else
+
+        //Debug.Log(m_moveTimer);
+
+        if(isGround || (!m_isInputMove[0] && m_isInputMove[1]))
         {
-            if (m_isInputMove[0] == true)
-            {
-                m_playerCamera.SetSensityvityX(0.1f);
-            }
+            //カメラの前方向と右方向を取得。
+            m_forward = m_camera.transform.forward;
+            m_right = m_camera.transform.right;
+
+            m_forward.y = 0.0f;
+            m_right.y = 0.0f;
+
+            m_right *= m_moveDirection.x;
+            m_forward *= m_moveDirection.y;
         }
-
-        if (m_isInputMove[0] == false)
-        {
-            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.01f)
-            {
-                m_moveDirection.x = Input.GetAxisRaw("Horizontal");
-                m_isInputMove[1] = true;
-            }
-            else
-            {
-                m_isInputMove[1] = false;
-            }
-        }
-
-        Debug.Log(m_moveTimer);
-
-        //カメラの前方向と右方向を取得。
-        Vector3 forward = m_camera.transform.forward;
-        Vector3 right = m_camera.transform.right;
-
-        forward.y = 0.0f;
-        right.y = 0.0f;
-
-        right *= m_moveDirection.x;
-        forward *= m_moveDirection.y;
 
         // 移動速度に上記で計算したベクトルを加算する。
         m_moveSpeed = Vector3.zero;
-        m_moveSpeed += right + forward;
+        m_moveSpeed += m_right + m_forward;
 
         //斜め移動を早くしないよう正規化する。
         m_moveSpeed.Normalize();

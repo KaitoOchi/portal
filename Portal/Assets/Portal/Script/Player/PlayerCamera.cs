@@ -18,13 +18,22 @@ public class PlayerCamera : MonoBehaviour
 
 
     /// <summary>
-    /// X軸の感度を設定。
+    /// プレイヤーの方向を設定。
     /// </summary>
-    /// <param name="x"></param>
-    public void SetSensityvityX(float x)
+    /// <param name="dir"></param>
+    public void SetPlayerDirection(Vector3 dir)
     {
-        Sensityvity.x = x;
+        //オイラー角を使用して角度を設定。
+        m_cameraRot *= Quaternion.Euler(dir);
+        m_characterRot *= Quaternion.Euler(dir);
+
+        ClampRotation();
+
+        //カメラとプレイヤーの回転を設定。
+        m_camera.transform.localRotation = m_cameraRot;
+        transform.localRotation = m_characterRot;
     }
+
 
     // Start is called before the first frame update
     void Start()

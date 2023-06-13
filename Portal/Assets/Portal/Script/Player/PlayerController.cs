@@ -5,10 +5,19 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     PlayerMove m_playerMove;
+    PlayerCamera m_playerCamera;
 
     bool m_cursorLock = true;   //カーソルのロック状態
 
 
+    /// <summary>
+    /// プレイヤーカメラを取得。
+    /// </summary>
+    /// <returns></returns>
+    public PlayerCamera GetPlayerCamera()
+    {
+        return m_playerCamera;
+    }
 
     /// <summary>
     /// カーソルのロック状態を取得。
@@ -20,10 +29,13 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
     // Start is called before the first frame update
     void Start()
     {
+        //プレイヤーについているコンポーネントを取得。
+        m_playerMove = GetComponent<PlayerMove>();
+        m_playerCamera = GetComponent<PlayerCamera>();
+
         //カーソルをロック状態にする。
         Cursor.lockState = CursorLockMode.Locked;
     }

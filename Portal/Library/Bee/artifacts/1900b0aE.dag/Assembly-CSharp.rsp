@@ -353,6 +353,7 @@
 "Assets/Portal/Script/Player/PlayerCamera.cs"
 "Assets/Portal/Script/Player/PlayerController.cs"
 "Assets/Portal/Script/Player/PlayerMove.cs"
+"Assets/Portal/Script/Portal.cs"
 -langversion:9.0
 
 /deterministic
