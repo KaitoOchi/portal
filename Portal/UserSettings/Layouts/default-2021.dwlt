@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 371}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 4245
+  controlID: 85
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 4246
+  controlID: 75
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 4247
+  controlID: 76
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -215,8 +215,8 @@ MonoBehaviour:
     y: 0
     width: 1104
     height: 555
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -338,23 +338,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 6ca8ffff
-      m_LastClickedID: -22420
-      m_ExpandedIDs: 58a2ffff6ca8ffff34fbffff8c5a0000
+      m_SelectedIDs: 865a0000
+      m_LastClickedID: 23174
+      m_ExpandedIDs: 32fbffff605a00008c5a0000a85a0000b25a0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: PortalBlue
-        m_OriginalName: PortalBlue
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -23976
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 8}
       m_SearchString: 
@@ -484,7 +484,7 @@ MonoBehaviour:
       containerId: overlay-container--right
       floating: 0
       collapsed: 0
-      displayed: 0
+      displayed: 1
       snapOffset: {x: 0, y: 0}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
@@ -623,9 +623,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 6.6702127, y: 1.4376397, z: 5.645377}
+    m_Target: {x: -4.1868434, y: 0.40977383, z: 9.357193}
     speed: 2
-    m_Value: {x: 6.6702127, y: 1.4376397, z: 5.645377}
+    m_Value: {x: -4.1868434, y: 0.40977383, z: 9.357193}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -672,13 +672,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.280956, y: -0.056967065, z: 0.016709588, w: -0.95787454}
+    m_Target: {x: -0.18812793, y: -0.022982087, z: 0.0044040945, w: -0.9818573}
     speed: 2
-    m_Value: {x: -0.2809582, y: -0.056967508, z: 0.016709719, w: -0.957882}
+    m_Value: {x: -0.1881295, y: -0.022982277, z: 0.004404131, w: -0.9818654}
   m_Size:
-    m_Target: 1.7530742
+    m_Target: 5.6381516
     speed: 2
-    m_Value: 1.7530742
+    m_Value: 5.6381516
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -867,22 +867,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Portal/RenderTexture
+    - Assets/Portal/Script
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Portal/RenderTexture
+  - Assets/Portal/Script
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\KaitoOchi\Documents\Github\portal\Portal
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 0c5b0000
-    m_LastClickedID: 23308
-    m_ExpandedIDs: 00000000f25a0000f45a0000f65a0000f85a0000fa5a0000fc5a000000ca9a3bffffff7f
+    m_SelectedIDs: 065b0000
+    m_LastClickedID: 23302
+    m_ExpandedIDs: 00000000025b0000045b0000065b0000085b00000a5b00000c5b000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -910,7 +910,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000f25a0000f45a0000f65a0000f85a0000fa5a0000fc5a000000ca9a3bffffff7f
+    m_ExpandedIDs: 00000000025b0000045b0000065b0000085b00000a5b00000c5b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
