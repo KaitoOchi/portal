@@ -252,7 +252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OtherPortal: {fileID: 2078410349}
   Player: {fileID: 1983286440}
-  Direction: {x: 0, y: 0, z: 0}
+  Direction: {x: 0, y: 180, z: 0}
   GameCamera: {fileID: 1508983424}
 --- !u!4 &79142164
 Transform:

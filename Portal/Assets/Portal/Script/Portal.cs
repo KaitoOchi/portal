@@ -44,9 +44,7 @@ public class Portal : MonoBehaviour
         {
             if (!m_isWarp)
             {
-                Player.transform.position = OtherPortal.transform.position;
-                Player.GetPlayerCamera().SetPlayerDirection(Direction);
-                OtherPortal.SetIsWarp(true);
+                Warp();
             }
             Debug.Log("a");
         }
@@ -73,5 +71,19 @@ public class Portal : MonoBehaviour
 
         GameCamera.transform.LookAt(cameraPos);
         GameCamera.transform.rotation *= Quaternion.Euler(1.0f, 1.0f, -180.0f);
+    }
+
+    /// <summary>
+    /// ÉèÅ[ÉvéûÇÃèàóùÅB
+    /// </summary>
+    void Warp()
+    {
+        Vector3 diff = Player.transform.position - transform.position;
+
+        Player.transform.position = OtherPortal.transform.position + diff;
+
+        Player.GetPlayerCamera().SetPlayerDirection(Direction);
+
+        OtherPortal.SetIsWarp(true);
     }
 }
