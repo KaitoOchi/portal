@@ -30,7 +30,7 @@ public class PlayerCamera : MonoBehaviour
         ClampRotation();
 
         //カメラとプレイヤーの回転を設定。
-        m_camera.transform.localRotation = m_cameraRot;
+        //m_camera.transform.localRotation = m_cameraRot;
         transform.localRotation = m_characterRot;
     }
 

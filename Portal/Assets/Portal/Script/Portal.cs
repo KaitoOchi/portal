@@ -37,21 +37,6 @@ public class Portal : MonoBehaviour
     void Update()
     {
         CameraUpdate();
-
-        float diff = Vector3.SqrMagnitude(Player.transform.position - this.transform.position);
-
-        if (diff < Mathf.Pow(2.0f, 2.0f))
-        {
-            if (!m_isWarp)
-            {
-                Warp();
-            }
-            Debug.Log("a");
-        }
-        else
-        {
-            m_isWarp = false;
-        }
     }
 
     /// <summary>
@@ -85,5 +70,25 @@ public class Portal : MonoBehaviour
         Player.GetPlayerCamera().SetPlayerDirection(Direction);
 
         OtherPortal.SetIsWarp(true);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            if (!m_isWarp)
+            {
+                Warp();
+            }
+            Debug.Log(transform.forward);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            m_isWarp = false;
+        }
     }
 }

@@ -231,6 +231,7 @@ GameObject:
   m_Component:
   - component: {fileID: 79142164}
   - component: {fileID: 79142163}
+  - component: {fileID: 79142165}
   m_Layer: 0
   m_Name: PortalRed
   m_TagString: Untagged
@@ -252,7 +253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OtherPortal: {fileID: 2078410349}
   Player: {fileID: 1983286440}
-  Direction: {x: 0, y: 180, z: 0}
+  Direction: {x: 0, y: 90, z: 0}
   GameCamera: {fileID: 1508983424}
 --- !u!4 &79142164
 Transform:
@@ -271,6 +272,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &79142165
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79142162}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 3, z: 0.1}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!1 &486627698
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,7 +899,6 @@ GameObject:
   - component: {fileID: 1536003780}
   - component: {fileID: 1536003779}
   - component: {fileID: 1536003778}
-  - component: {fileID: 1536003777}
   m_Layer: 0
   m_Name: PortalFrame
   m_TagString: Untagged
@@ -893,20 +906,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &1536003777
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1536003776}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1536003778
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1030,7 +1029,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1983286432}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1145,7 +1144,6 @@ GameObject:
   - component: {fileID: 2008612581}
   - component: {fileID: 2008612580}
   - component: {fileID: 2008612579}
-  - component: {fileID: 2008612578}
   m_Layer: 0
   m_Name: PortalFrame
   m_TagString: Untagged
@@ -1153,20 +1151,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &2008612578
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2008612577}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &2008612579
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1242,6 +1226,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2078410350}
   - component: {fileID: 2078410349}
+  - component: {fileID: 2078410351}
   m_Layer: 0
   m_Name: PortalBlue
   m_TagString: Untagged
@@ -1263,7 +1248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OtherPortal: {fileID: 79142163}
   Player: {fileID: 1983286440}
-  Direction: {x: 0, y: 0, z: 0}
+  Direction: {x: 0, y: 90, z: 0}
   GameCamera: {fileID: 2080132706}
 --- !u!4 &2078410350
 Transform:
@@ -1282,6 +1267,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2078410351
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078410348}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 3, z: 0.1}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!1 &2080132704
 GameObject:
   m_ObjectHideFlags: 0
@@ -1308,7 +1306,7 @@ Transform:
   m_GameObject: {fileID: 2080132704}
   m_LocalRotation: {x: -1, y: -0, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 1.5, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.3000001, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2078410350}
