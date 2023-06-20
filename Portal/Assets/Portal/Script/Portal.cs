@@ -45,17 +45,20 @@ public class Portal : MonoBehaviour
     void CameraUpdate()
     {
         Vector3 playerPos = Player.transform.position;
-        Vector3 cameraPos = playerPos;
+        Vector3 cameraPos = GameCamera.transform.position;
+        Vector3 portalPos = OtherPortal.transform.position;
 
-        //float angle = Mathf.Atan2(transform.position.z - playerPos.z, transform.position.z - playerPos.x);
+        //高さを合わせる。
+        playerPos.y = cameraPos.y;
+        portalPos.y = cameraPos.y;
 
-        //GameCamera.transform.rotation = Quaternion.Euler(0.0f, -angle * 180.0f, 180.0f);
+        Vector3 diff = (cameraPos - playerPos);
 
-        //GameCamera.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
-        //GameCamera.transform.rotation = Quaternion.LookRotation(diff);
+        diff += portalPos;
 
-        GameCamera.transform.LookAt(cameraPos);
-        GameCamera.transform.rotation *= Quaternion.Euler(1.0f, 1.0f, -180.0f);
+        //プレイヤーとポータルの延長線上にカメラを向ける。
+        GameCamera.transform.LookAt(diff);
+        GameCamera.transform.localRotation *= Quaternion.Euler(1.0f, 180.0f, 180.0f);
     }
 
     /// <summary>
